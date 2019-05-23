@@ -5,6 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.util.Calendar;
+
 public class Ergebnis extends AppCompatActivity {
     int endergebnis = 0;
     double schnitt = 0;
@@ -12,6 +19,7 @@ public class Ergebnis extends AppCompatActivity {
     int serie2 = 0;
     int serie3 = 0;
     int serie4 = 0;
+    String [] sa = new String[42];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +61,73 @@ public class Ergebnis extends AppCompatActivity {
             }
             gesamt.append(i+1).append(". Schuss: ").append(ringe[i]).append("\n");
             endergebnis = endergebnis + ringe[i];
+
         }
 
         schnitt = (double) endergebnis / (double) schuss;
 
         text.setText(gesamt);
         text2.setText("Gesamt: " + endergebnis + "  Schnitt: " + Double.toString(schnitt) + "  Schüsse: " + schuss);
+
+        Calendar calendar = Calendar.getInstance();
+        String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
+
+        sa[0] = "Gesamt: " + endergebnis + "  Schnitt: " + Double.toString(schnitt) + "  Schüsse: " + schuss;
+        sa[1] = "1.Serie: " + serie1;
+        for(int i = 0; i<10; i++){
+            sa[i+1] = Integer.toString(ringe[i]) ;
+        }
+        sa[11] = "2.Serie: " + serie2;
+        for(int i = 10; i<20; i++){
+            sa[i+11] = Integer.toString(ringe[i]) ;
+        }
+        sa[21] = "3.Serie " + serie3;
+        for(int i = 20; i<30; i++){
+            sa[i+21] = Integer.toString(ringe[i]) ;
+        }
+        sa[31] = "4.Serie" + serie4;
+        for(int i = 30; i<40; i++){
+            sa[i+31] = Integer.toString(ringe[i]) ;
+        }
+        sa[41] = currentDate;
+
+    }
+
+    public static void speichern (){
+
+
+    }
+
+    public static void Save(File file, String[] data)
+    {
+        FileOutputStream fos = null;
+        try
+        {
+            fos = new FileOutputStream(file);
+        }
+        catch (FileNotFoundException e) {e.printStackTrace();}
+        try
+        {
+            try
+            {
+                for (int i = 0; i<data.length; i++)
+                {
+                    fos.write(data[i].getBytes());
+                    if (i < data.length-1)
+                    {
+                        fos.write("\n".getBytes());
+                    }
+                }
+            }
+            catch (IOException e) {e.printStackTrace();}
+        }
+        finally
+        {
+            try
+            {
+                fos.close();
+            }
+            catch (IOException e) {e.printStackTrace();}
+        }
     }
 }
