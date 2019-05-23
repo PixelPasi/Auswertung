@@ -1,9 +1,13 @@
 package com.example.auswertung;
 
 import android.content.Intent;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,12 +23,16 @@ public class Ergebnis extends AppCompatActivity {
     int serie2 = 0;
     int serie3 = 0;
     int serie4 = 0;
-    String [] sa = new String[42];
+    String [] sa = new String[45];
+    public static String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Auswertung";
+    static Calendar calendar = Calendar.getInstance();
+    static String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ergebnis);
+        Button save  = findViewById(R.id.save);
 
         TextView text = findViewById(R.id.tv1);
         TextView text2 = findViewById(R.id.tv2);
@@ -69,9 +77,6 @@ public class Ergebnis extends AppCompatActivity {
         text.setText(gesamt);
         text2.setText("Gesamt: " + endergebnis + "  Schnitt: " + Double.toString(schnitt) + "  Schüsse: " + schuss);
 
-        Calendar calendar = Calendar.getInstance();
-        String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
-
         sa[0] = "Gesamt: " + endergebnis + "  Schnitt: " + Double.toString(schnitt) + "  Schüsse: " + schuss;
         sa[1] = "1.Serie: " + serie1;
         for(int i = 0; i<10; i++){
@@ -91,11 +96,16 @@ public class Ergebnis extends AppCompatActivity {
         }
         sa[41] = currentDate;
 
+        File dir = new File(path);
+        dir.mkdirs();
+
     }
 
-    public static void speichern (){
+    public void speichern (View view){
+        File file = new File(path + "/test");
+        Toast.makeText(getApplicationContext(), "Gespeichert", Toast.LENGTH_LONG).show();
 
-
+        Save(file, sa);
     }
 
     public static void Save(File file, String[] data)
