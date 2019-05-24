@@ -32,7 +32,7 @@ public class Ergebnis extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ergebnis);
-        Button save  = findViewById(R.id.save);
+        Button save  = (Button) findViewById(R.id.save);
 
         TextView text = findViewById(R.id.tv1);
         TextView text2 = findViewById(R.id.tv2);
@@ -80,21 +80,21 @@ public class Ergebnis extends AppCompatActivity {
         sa[0] = "Gesamt: " + endergebnis + "  Schnitt: " + Double.toString(schnitt) + "  Schüsse: " + schuss;
         sa[1] = "1.Serie: " + serie1;
         for(int i = 0; i<10; i++){
-            sa[i+1] = Integer.toString(ringe[i]) ;
+            sa[i+2] = Integer.toString(ringe[i]) ;
         }
         sa[11] = "2.Serie: " + serie2;
         for(int i = 10; i<20; i++){
-            sa[i+11] = Integer.toString(ringe[i]) ;
+            sa[i+2] = Integer.toString(ringe[i]) ;
         }
         sa[21] = "3.Serie " + serie3;
         for(int i = 20; i<30; i++){
-            sa[i+21] = Integer.toString(ringe[i]) ;
+            sa[i+2] = Integer.toString(ringe[i]) ;
         }
         sa[31] = "4.Serie" + serie4;
         for(int i = 30; i<40; i++){
-            sa[i+31] = Integer.toString(ringe[i]) ;
+            sa[i+2] = Integer.toString(ringe[i]) ;
         }
-        sa[41] = currentDate;
+        sa[41] = "Datum:";
 
         File dir = new File(path);
         dir.mkdirs();
@@ -102,10 +102,10 @@ public class Ergebnis extends AppCompatActivity {
     }
 
     public void speichern (View view){
-        File file = new File(path + "/test");
+        //File file = new File(path + "/test.txt");
         Toast.makeText(getApplicationContext(), "Gespeichert", Toast.LENGTH_LONG).show();
-
-        Save(file, sa);
+        //String[] saveTest = {"Hallo"};
+        //Save(file, saveTest);
     }
 
     public static void Save(File file, String[] data)
