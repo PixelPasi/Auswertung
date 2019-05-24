@@ -24,7 +24,7 @@ public class Ergebnis extends AppCompatActivity {
     int serie3 = 0;
     int serie4 = 0;
     String [] sa = new String[45];
-    public static String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Auswertung";
+    public static String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/auswertung";
     static Calendar calendar = Calendar.getInstance();
     static String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
 
@@ -98,18 +98,16 @@ public class Ergebnis extends AppCompatActivity {
 
         File dir = new File(path);
         dir.mkdirs();
-
     }
 
     public void speichern (View view){
-        //File file = new File(path + "/test.txt");
+        File file = new File(path + "/test.txt");
+        String[] saveTest = {"Hallo"};
         Toast.makeText(getApplicationContext(), "Gespeichert", Toast.LENGTH_LONG).show();
-        //String[] saveTest = {"Hallo"};
-        //Save(file, saveTest);
+        Save(file, sa);
     }
 
-    public static void Save(File file, String[] data)
-    {
+    public static void Save(File file, String[] data) {
         FileOutputStream fos = null;
         try
         {
